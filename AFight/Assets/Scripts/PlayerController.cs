@@ -60,14 +60,15 @@ public class PlayerController : MonoBehaviour {
       }
 
       // Jump Handling
-    //   if (vDir < 0) {
-    //       // rb.gravityScale = FALL_MULTIPLIER;
-    //   } else if (vDir > 0) {
-    //       rb.AddForce(gameObject.transform.up * 7f);
-    //       rb.gravityScale = LOW_JUMP_MULTIPLIER;
-    //   } else {
-    //     Debug.Log("Heaaoo");
-    //       // rb.gravityScale = 1f;
-    //   }
-    // }
+      if (vDir < 0) {
+          // rb.gravityScale = FALL_MULTIPLIER;
+      } else if (vDir > 0) {
+          rb.AddForce(gameObject.transform.up * 7f);
+          gameObject.transform.position = new Vector3(x + (WALK_SPEED * hDir), y * 0.7f, z);
+          rb.gravityScale = LOW_JUMP_MULTIPLIER;
+      } else {
+        Debug.Log("Heaaoo");
+          // rb.gravityScale = 1f;
+      }
+    }
 }

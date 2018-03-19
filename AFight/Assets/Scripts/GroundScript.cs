@@ -23,7 +23,8 @@ public class GroundScript : MonoBehaviour {
   }
   void OnTriggerExit2D(Collider2D o) {
       if (o.gameObject.CompareTag("Ground")) {
-          p.grounded = false;  
+          p.grounded = false;
+          Debug.Log("OUT");
       }
   }
 	// Update is called once per frame

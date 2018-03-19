@@ -6,8 +6,10 @@ public class PlayerController : MonoBehaviour {
 
   // Character Movement Variabeles
   // Movement Speed
-  private const float DASH_SPEED = 0.125f;
-  private const float WALK_SPEED = 3f;
+  private const float DASH_PUSH = 0.1f;
+  private const float DASH_SPEED = 5f;
+  private const float WALK_SPEED = 2f;
+  private const float ACCELERATION = 10f;
 
   private float dash_buffer_time = 0.5f; // Amount of dash time
   private float dtp = 0f; // counter for number of taps for dash
@@ -16,8 +18,8 @@ public class PlayerController : MonoBehaviour {
 
   // Jumping Variables
   public bool grounded = true;
-  private const float FALL_MULTIPLIER = 1f;
-  private const float LOW_JUMP_MULTIPLIER = 2f;
+  private const float FALL_MULTIPLIER = 2f;
+  private const float FAST_FALL_MULTIPLIER = 10f;
   private const float JUMP_RESIST = 1f;
   private const float JUMP_TIME = 0.5f;  // max jump time
   private float djpt = 0f; // time spent jumping
@@ -32,14 +34,14 @@ public class PlayerController : MonoBehaviour {
   void FixedUpdate()  {
 
       //Store horizontal movement input direction
-      float hDir = Input.GetAxis ("HMovement");
+      float hDir = Input.GetAxis("HMovement");
 
       //Store vertical movement input direction
-      float vDir = Input.GetAxis ("VMovement");
+      float vDir = Input.GetAxis("VMovement");
 
-      float x = gameObject.transform.position.x;
-      float y = gameObject.transform.position.y;
-      float z = gameObject.transform.position.z;
+      // float x = gameObject.transform.position.x;
+      // float y = gameObject.transform.position.y;
+      // float z = gameObject.transform.position.z;
 
       // Movement and Dash Handling
       if (Input.GetButtonDown("HMovement")) {
@@ -60,32 +62,41 @@ public class PlayerController : MonoBehaviour {
       }
 
       if (dash) {
-        gameObject.transform.position = new Vector3(x + (DASH_SPEED * dashDir), y, z);
+        // gameObject.transform.position = new Vector3(x + (DASH_PUSH * dashDir), y, z);
+        rb.velocity =  rb.velocity.normalized * DASH_SPEED;
       } else {
-        // gameObject.transform.position = new Vector3(x + (WALK_SPEED * hDir), y, z);
-        rb.AddForce((Vector2.right * WALK_SPEED) * hDir);
-        Debug.Log((Vector2.right * WALK_SPEED) * hDir);
+        // Debug.Log((Vector2.right * WALK_SPEED) * hDir);
+        Vector2 horizontalMovement = new Vector2(hDir, 0);
+        rb.AddForce((Vector2.right * WALK_SPEED) * hDir * ACCELERATION);
+        rb.AddForce(horizontalMovement * WALK_SPEED);
+        rb.velocity = (rb.velocity.magnitude > WALK_SPEED) ? rb.velocity.normalized * WALK_SPEED : rb.velocity;
       }
 
-      // Jump Handling
+/*
+*
+* Jump Handling
+*
+*/
+      djpt = (grounded) ? 0 : djpt;
+
       if (vDir < 0) {
-          Debug.Log("1");
-          rb.gravityScale = LOW_JUMP_MULTIPLIER;
-          djpt = 0f;
+          // Debug.Log("1");
+          rb.gravityScale = FAST_FALL_MULTIPLIER;
       } else if (vDir > 0 && djpt < JUMP_TIME) {
-        Debug.Log("2");
+        // Debug.Log("2");
+          rb.gravityScale = FALL_MULTIPLIER;
           rb.gravityScale = JUMP_RESIST;
-          // gameObject.transform.position = new Vector3(x + (WALK_SPEED * hDir), y * (1.5f * (JUMP_TIME - djpt)), z);
-          rb.AddForce(Vector2.up * 25f);
+          // rb.velocity = new Vector3(0, 2, 0);
+
+          rb.AddForce(Vector2.up * 50f);
           djpt += Time.deltaTime;
       } else if (vDir > 0 && djpt > JUMP_TIME) {
-          Debug.Log("3");
-          gameObject.transform.position = new Vector3(x + (WALK_SPEED * hDir), y, z);
+          // Debug.Log("3");
           rb.gravityScale = FALL_MULTIPLIER;
       } else {
           // Debug.Log("4");
-          djpt = 0f;
-          rb.gravityScale = 1f;
+          // djpt =  0f;
+          rb.gravityScale = (rb.gravityScale == FAST_FALL_MULTIPLIER) ? FAST_FALL_MULTIPLIER : FALL_MULTIPLIER;
       }
     }
 }

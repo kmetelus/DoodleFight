@@ -17,9 +17,7 @@ public class GroundScript : MonoBehaviour {
 
   }
   void OnTriggerStay2D(Collider2D o) {
-      if (o.gameObject.CompareTag("Ground")) {
-          p.grounded = true;
-      }
+      p.grounded = (o.gameObject.CompareTag("Ground")) ? true : false;
   }
   void OnTriggerExit2D(Collider2D o) {
       if (o.gameObject.CompareTag("Ground")) {

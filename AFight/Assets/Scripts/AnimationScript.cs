@@ -29,12 +29,16 @@ public class AnimationScript : MonoBehaviour {
       // Debug.Log("HEO");
       a.SetBool("JUMP", true);
       a.SetBool("GROUNDED", false);
-    } else {
+    } else if (!p.grounded) {
+      a.SetBool("GROUNDED", false);
+    }else {
       // Debug.Log("ONOOOO");
       a.SetBool("JUMP", false);
       a.SetBool("GROUNDED", true);
       // Debug.Log(p.grounded);
     }
 
+    a.SetBool("DASH", p.dash);
+    a.SetBool("DEFEND", p.defending);
 	}
 }

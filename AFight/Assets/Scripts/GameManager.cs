@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-    Instantiate(player1, p1Spawn.transform, true);
+    Instantiate(player1, p1Spawn.transform, false);
 	}
 
 	// Update is called once per frame

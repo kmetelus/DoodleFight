@@ -9,22 +9,25 @@ public class PlayerController : MonoBehaviour {
   // Movement Speed
   public float hDir;
   public float vDir;
-  public const float DASH_SPEED = 10f;
   public const float MIN_SPEED = 0.03f;
   public const float MAX_SPEED = 5f;
   public const float DECELERATION_FACTOR = 5f;
   public bool decelerate = false;
 
-  private float dash_buffer_time = 0.5f; // Amount of dash time
-  private float dtp = 0f; // counter for number of taps for dash
-  private bool dash = false;
-  private float dashDir = 1f;
+  // Input Variables
+    // Dash variables
+  public bool dash = false;
+  public float dashDir = 1f;
+    // Defense Variables
+  public bool defending = false;
 
   // Jumping Variables
   public bool grounded = true;
   public bool fastfall = false;
+  public const float MAX_JUMP_TIME = 0.2f;
+  public const float AIR_SPEED = 20f;
   public const float DEFAULT_FALL_MULTIPLIER = 1f;
-  public const float FAST_FALL_MULTIPLIER = 10f;
+  public const float FAST_FALL_MULTIPLIER = 15f;
 
 
   private Rigidbody2D rb;
@@ -34,28 +37,30 @@ public class PlayerController : MonoBehaviour {
       rb = GetComponent<Rigidbody2D>();
   }
 
-  void FixedUpdate()  {
+  void Update()  {
 
       //Store horizontal movement input direction
       hDir = Input.GetAxis("HMovement");
+      dashDir = (hDir != 0 && !dash) ? hDir : dashDir;
 
       //Store vertical movement input direction
       vDir = Input.GetAxis("VMovement");
 
       decelerate = (hDir == 0 && rb.velocity.magnitude > MIN_SPEED && grounded) ? true : false;
-
-
       fastfall = (vDir < 0 && !grounded) ? true : false;
 
-      // Movement and Dash Handling
+      dash = Input.GetButtonDown("Dash");
+      defending = Input.GetButton("Defend");
+
+      // // Movement and Dash Handling
       // if (Input.GetButtonDown("HMovement")) {
-      //     if (dash_buffer_time > 0 && dtp == 1) {
-      //       dashDir = !dash ? hDir : dashDir; // Set the dash direction
-      //       dash = true;
-      //     } else {
-      //       dash_buffer_time = 0.5f;
-      //       dtp += 1;
-      //     }
+      //   if (dash_buffer_time > 0 && dtp == 1) {
+      //     dashDir = !dash ? hDir : dashDir; // Set the dash direction
+      //     dash = true;
+      //   } else {
+      //     dash_buffer_time = 1f;
+      //     dtp += 1;
+      //   }
       // }
       //
       // if (dash_buffer_time > 0) {
@@ -64,7 +69,7 @@ public class PlayerController : MonoBehaviour {
       //   dtp = 0;
       //   dash = false;
       // }
-      //
+
       // if (dash) {
       //   // gameObject.transform.position = new Vector3(x + (DASH_PUSH * dashDir), y, z);
       //   rb.velocity =  rb.velocity.normalized * DASH_SPEED;

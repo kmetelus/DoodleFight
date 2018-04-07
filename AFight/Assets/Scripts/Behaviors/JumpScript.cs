@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementBehaviorScript : StateMachineBehaviour {
+public class JumpScript : StateMachineBehaviour {
 
-  public float horizontalForce;
   public float verticalForce;
   private float jump_buffer_time;
   private float jump_dir;
@@ -14,32 +13,34 @@ public class MovementBehaviorScript : StateMachineBehaviour {
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    // Debug.Log(stateInfo.length);
-    // Debug.Log(stateInfo.shortNameHash);
-    // Debug.Log(animator.GetBool("GROUNDED") + " " + animator.GetBool("DASH"));
-	  fighter = (fighter == null) ? animator.gameObject.GetComponent<Fighter>() : fighter;
+    fighter = (fighter == null) ? animator.gameObject.GetComponent<Fighter>() : fighter;
     p = fighter.GetComponentInParent<PlayerController>();
-    Debug.Log(stateInfo.shortNameHash);
-
+    fighter.rb.AddRelativeForce(Vector2.up * verticalForce * p.vDir);
+    jump_buffer_time = PlayerController.MAX_JUMP_TIME;
+    jump_dir = p.hDir;
+    p.canLand = false;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    // Debug.Log(animator.GetBool("GROUNDED") + " " + animator.GetBool("DASH"));
-    if (animator.GetBool("MOVE")) {
-      // Debug.Log("EREOI");
-      fighter.rb.AddRelativeForce(Vector2.right * horizontalForce * p.hDir);  // Speed will be limited in the Fighter Scipt
+    jump_buffer_time -=Time.deltaTime;
+    p.canLand = p.vDir == 0;
+    fighter.rb.AddRelativeForce(Vector2.up * (verticalForce / 4) * p.vDir);
+    fighter.rb.AddRelativeForce(Vector2.right * PlayerController.AIR_SPEED * jump_dir);
+
+
+    if (jump_buffer_time <= 0 || p.vDir < 1) {
+      animator.SetBool("JUMP", false);
+      animator.SetBool("FALLING", true);
     }
 
-    if (animator.GetBool("FALLING")) {
-      fighter.rb.AddRelativeForce(Vector2.right * PlayerController.FALL_CONTROL * p.hDir);
-    }
 	}
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-	// override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-  //   p.canLand = true;
-	// }
+	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+    p.canLand = true;
+    jump_buffer_time = 0f;
+	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
 	//override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {

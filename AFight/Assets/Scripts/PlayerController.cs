@@ -24,8 +24,11 @@ public class PlayerController : MonoBehaviour {
   // Jumping Variables
   public bool grounded = true;
   public bool fastfall = false;
-  public const float MAX_JUMP_TIME = 0.2f;
-  public const float AIR_SPEED = 20f;
+  public bool canJump = true;
+  public bool canLand = true;
+  public const float MAX_JUMP_TIME = 0.25f;
+  public const float AIR_SPEED = 50f;
+  public const float FALL_CONTROL = 1.25f;
   public const float DEFAULT_FALL_MULTIPLIER = 1f;
   public const float FAST_FALL_MULTIPLIER = 15f;
 

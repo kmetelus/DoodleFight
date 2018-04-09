@@ -16,12 +16,7 @@ public class AnimationScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-    // if (Mathf.Abs(p.hDir) > 0) {
-    //   a.SetBool("MOVE", true);
-    // } else {
-    //   // Debug.Log("STOP");
-    //   a.SetBool("MOVE", false);
-    // }
+
     a.SetBool("MOVE", Mathf.Abs(p.hDir) > 0 && !a.GetBool("FALLING"));
     // Debug.Log(a.GetBool("MOVE"));
     sr.flipX = (p.hDir < 0) ? true : (p.hDir > 0) ? false : sr.flipX;
@@ -37,14 +32,14 @@ public class AnimationScript : MonoBehaviour {
     } else {
       // Debug.Log("ONOOOO");
       a.SetBool("JUMP", false);
-      a.SetBool("GROUNDED", true);
+      a.SetBool("GROUNDED", (p.grounded && !p.successFallThrough));
       a.SetBool("FALLING", false);
       // Debug.Log(p.grounded);
     }
 
-    a.SetBool("FALLING", !p.grounded && !p.canJump && !a.GetBool("JUMP"));
-
+    a.SetBool("FALLING", (!p.grounded && !p.canJump && !a.GetBool("JUMP")) || (p.tryFallThrough && p.grounded && p.successFallThrough));
     a.SetBool("DASH", p.dash);
     a.SetBool("DEFEND", p.defending);
+    a.SetBool("ATTACK1", p.attacking);
 	}
 }

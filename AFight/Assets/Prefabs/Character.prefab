@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114437223200218476}
   - component: {fileID: 50045658522970304}
   - component: {fileID: 70954939493920408}
+  - component: {fileID: 114497401830515658}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -45,6 +46,7 @@ GameObject:
   - component: {fileID: 23805221294267390}
   - component: {fileID: 114224100436436388}
   - component: {fileID: 61800754811098704}
+  - component: {fileID: 70937992813185328}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -163,6 +165,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1}
   m_EdgeRadius: 0
+--- !u!70 &70937992813185328
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1387764075790280}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.5, y: 1}
+  m_Direction: 0
 --- !u!70 &70954939493920408
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -173,7 +190,7 @@ CapsuleCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 2}
@@ -222,6 +239,19 @@ MonoBehaviour:
   hittable: 1
   player: 0
   rb: {fileID: 0}
+--- !u!114 &114497401830515658
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1264249455611560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a05425606701d43a5b14290da75fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frame2: {fileID: 60748421171154868, guid: 3ec223ad7fe11df48b8da60ded49a89c, type: 2}
+  frame3: {fileID: 60748421171154868, guid: 3ec223ad7fe11df48b8da60ded49a89c, type: 2}
 --- !u!114 &114591981700625086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -249,10 +279,12 @@ MonoBehaviour:
   decelerate: 0
   dash: 0
   dashDir: 1
+  attacking: 0
   defending: 0
   grounded: 1
   fastfall: 0
   canJump: 1
+  tryFallThrough: 0
 --- !u!212 &212959082831522332
 SpriteRenderer:
   m_ObjectHideFlags: 1

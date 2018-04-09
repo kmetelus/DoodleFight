@@ -18,13 +18,11 @@ public class JumpScript : StateMachineBehaviour {
     fighter.rb.AddRelativeForce(Vector2.up * verticalForce * p.vDir);
     jump_buffer_time = PlayerController.MAX_JUMP_TIME;
     jump_dir = p.hDir;
-    p.canLand = false;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
     jump_buffer_time -=Time.deltaTime;
-    p.canLand = p.vDir == 0;
     fighter.rb.AddRelativeForce(Vector2.up * (verticalForce / 4) * p.vDir);
     fighter.rb.AddRelativeForce(Vector2.right * PlayerController.AIR_SPEED * jump_dir);
 
@@ -38,7 +36,6 @@ public class JumpScript : StateMachineBehaviour {
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    p.canLand = true;
     jump_buffer_time = 0f;
 	}
 

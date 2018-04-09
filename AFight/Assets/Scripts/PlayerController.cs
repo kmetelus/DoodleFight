@@ -18,14 +18,18 @@ public class PlayerController : MonoBehaviour {
     // Dash variables
   public bool dash = false;
   public float dashDir = 1f;
+
+    // Attacking variables
+  public bool attacking = false;
     // Defense Variables
   public bool defending = false;
 
-  // Jumping Variables
+    // Jumping Variables
   public bool grounded = true;
   public bool fastfall = false;
   public bool canJump = true;
-  public bool canLand = true;
+  public bool tryFallThrough = false;
+  public bool successFallThrough = false;
   public const float MAX_JUMP_TIME = 0.25f;
   public const float AIR_SPEED = 50f;
   public const float FALL_CONTROL = 1.25f;
@@ -51,9 +55,11 @@ public class PlayerController : MonoBehaviour {
 
       decelerate = (hDir == 0 && rb.velocity.magnitude > MIN_SPEED && grounded) ? true : false;
       fastfall = (vDir < 0 && !grounded) ? true : false;
+      tryFallThrough = (vDir < 0) ? true : tryFallThrough;
 
       dash = Input.GetButtonDown("Dash");
       defending = Input.GetButton("Defend");
+      attacking = Input.GetButton("Attack");
 
       // // Movement and Dash Handling
       // if (Input.GetButtonDown("HMovement")) {

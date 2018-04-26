@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-    timeLeft -= Time.deltaTime;
+    timeLeft -= (timeLeft < 0) ? 0 : Time.deltaTime;
     timerText.text = "TIME\n" + Mathf.Round(timeLeft);
 	}
 }

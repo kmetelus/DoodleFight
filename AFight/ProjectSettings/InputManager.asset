@@ -343,9 +343,9 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: Attack
-    descriptiveName: E
-    descriptiveNegativeName: F
-    negativeButton: e
+    descriptiveName: F
+    descriptiveNegativeName: 
+    negativeButton: 
     positiveButton: f
     altNegativeButton: 
     altPositiveButton: joystick button 1
@@ -359,9 +359,9 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: Defend
-    descriptiveName: F
-    descriptiveNegativeName: E
-    negativeButton: f
+    descriptiveName: E
+    descriptiveNegativeName: 
+    negativeButton: 
     positiveButton: e
     altNegativeButton: 
     altPositiveButton: joystick button 1

@@ -18,6 +18,7 @@ public class AirDashScript : StateMachineBehaviour {
     fighter.hittable = false;
     fighter.rb.AddRelativeForce(Vector2.right * AIR_DASH_POWER * p.dashDir);
     a.canFlip = false;
+    p.shouldLand = true;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

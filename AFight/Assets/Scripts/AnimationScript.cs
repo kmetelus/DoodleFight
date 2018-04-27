@@ -22,7 +22,6 @@ public class AnimationScript : MonoBehaviour {
     // Debug.Log(a.GetBool("MOVE"));
     sr.flipX = (canFlip) ? ((p.hDir < 0) ? true : (p.hDir > 0) ? false : sr.flipX) : sr.flipX;
 
-    // Debug.Log(p.shouldLand);
     if (p.vDir > 0 && p.grounded && p.canJump && !p.shouldLand) {
       // Debug.Log("HEO");
       a.SetBool("JUMP", true);

@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour {
       attacking = Input.GetButton("Attack");
 
       decelerate = (hDir == 0 && rb.velocity.magnitude > MIN_SPEED && grounded) || defending || attacking;
-      fastfall = (vDir < 0 && !grounded) ? true : false;
+      fastfall = (vDir < 0 && !grounded);
       tryFallThrough = (vDir < 0) ? true : tryFallThrough;
 
 

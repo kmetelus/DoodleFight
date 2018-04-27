@@ -32,9 +32,10 @@ public class MovementBehaviorScript : StateMachineBehaviour {
     if (p.vDir > 0) {
         p.shouldLand = false;
     }
+    // p.canJump = true;
 
     if (animator.GetBool("FALLING")) {
-      p.shouldLand = fighter.rb.velocity.y < 0;
+      p.shouldLand = fighter.rb.velocity.y <= 0;
       fighter.rb.AddRelativeForce(Vector2.right * PlayerController.FALL_CONTROL * p.hDir);
     }
 

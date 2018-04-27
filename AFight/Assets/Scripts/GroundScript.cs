@@ -13,16 +13,15 @@ public class GroundScript : MonoBehaviour {
 	}
 
   void OnTriggerEnter2D(Collider2D o) {
-      p.tryFallThrough = p.successFallThrough = false;
-      p.canJump = p.vDir <= 0;
-      if ((o.gameObject.CompareTag("Ground") || o.gameObject.CompareTag("Platform")) && p.vDir <= 0) {
-          Debug.Log("ENTERED");
-          p.grounded = true;
+      if (((o.gameObject.CompareTag("Ground") || o.gameObject.CompareTag("Platform")) && p.vDir <= 0) || p.shouldLand) {
+        p.tryFallThrough = p.successFallThrough = false;
+        p.canJump = p.vDir <= 0;
+        Debug.Log("ENTERED");
+        p.grounded = true;
       }
       bc.enabled = true;
   }
   void OnTriggerStay2D(Collider2D o) {
-      p.grounded = (o.gameObject.CompareTag("Ground") || o.gameObject.CompareTag("Platform")) && p.vDir <= 0;
       if (o.gameObject.CompareTag("Ground") || p.shouldLand) {
         p.grounded = true;
       }
@@ -35,9 +34,8 @@ public class GroundScript : MonoBehaviour {
       if (o.gameObject.CompareTag("Ground") || o.gameObject.CompareTag("Platform")) {
           p.grounded = p.canJump = false;
           Debug.Log("GONE");
+          bc.enabled = true;
       }
-      bc.enabled = true;
-      p.canJump = false;
   }
 	// Update is called once per frame
 	void Update () {

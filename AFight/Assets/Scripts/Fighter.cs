@@ -35,8 +35,6 @@ public class Fighter : MonoBehaviour {
     rb.drag = (p.decelerate) ? PlayerController.DECELERATION_FACTOR : 0;
     rb.gravityScale = (p.fastfall) ? PlayerController.FAST_FALL_MULTIPLIER : PlayerController.DEFAULT_FALL_MULTIPLIER;
 
-    hittable = !p.defending;
-    // Debug.Log(hittable);
 	}
 
   public float getPercentHealth() {

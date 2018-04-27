@@ -7,6 +7,7 @@ public class AnimationScript : MonoBehaviour {
   private SpriteRenderer sr;
   private Animator a;
   private PlayerController p;
+  public bool canFlip = true;
 	// Use this for initialization
 	void Start () {
 		sr = GetComponent<SpriteRenderer>();
@@ -19,10 +20,10 @@ public class AnimationScript : MonoBehaviour {
 
     a.SetBool("MOVE", Mathf.Abs(p.hDir) > 0 && !a.GetBool("FALLING"));
     // Debug.Log(a.GetBool("MOVE"));
-    sr.flipX = (p.hDir < 0) ? true : (p.hDir > 0) ? false : sr.flipX;
+    sr.flipX = (canFlip) ? ((p.hDir < 0) ? true : (p.hDir > 0) ? false : sr.flipX) : sr.flipX;
 
-
-    if (p.vDir > 0 && p.grounded && p.canJump) {
+    // Debug.Log(p.shouldLand);
+    if (p.vDir > 0 && p.grounded && p.canJump && !p.shouldLand) {
       // Debug.Log("HEO");
       a.SetBool("JUMP", true);
       a.SetBool("GROUNDED", false);

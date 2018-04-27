@@ -6,7 +6,6 @@ public class GroundScript : MonoBehaviour {
 
 	private PlayerController p;
   private BoxCollider2D bc;
-  private CapsuleCollider2D sc;
 
 	void Start () {
 		  p = gameObject.GetComponentInParent<PlayerController>();
@@ -23,10 +22,14 @@ public class GroundScript : MonoBehaviour {
       bc.enabled = true;
   }
   void OnTriggerStay2D(Collider2D o) {
-      p.grounded = (o.gameObject.CompareTag("Ground") || o.gameObject.CompareTag("Platform")) ? true : false;
+      p.grounded = (o.gameObject.CompareTag("Ground") || o.gameObject.CompareTag("Platform")) && p.vDir <= 0;
+      if (o.gameObject.CompareTag("Ground") || p.shouldLand) {
+        p.grounded = true;
+      }
       p.canJump = true;
-      bc.enabled = (o.gameObject.CompareTag("Platform") && p.tryFallThrough) ? false : true;
+      bc.enabled = !(o.gameObject.CompareTag("Platform") && p.tryFallThrough);
       p.successFallThrough = !bc.enabled;
+
   }
   void OnTriggerExit2D(Collider2D o) {
       if (o.gameObject.CompareTag("Ground") || o.gameObject.CompareTag("Platform")) {

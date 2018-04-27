@@ -6,8 +6,6 @@ public class MovementBehaviorScript : StateMachineBehaviour {
 
   public float horizontalForce;
   public float verticalForce;
-  private float jump_buffer_time;
-  private float jump_dir;
 
   protected Fighter fighter;
   protected PlayerController p;
@@ -31,14 +29,20 @@ public class MovementBehaviorScript : StateMachineBehaviour {
       fighter.rb.AddRelativeForce(Vector2.right * horizontalForce * p.hDir);  // Speed will be limited in the Fighter Scipt
     }
 
+    if (p.vDir > 0) {
+        p.shouldLand = false;
+    }
+
     if (animator.GetBool("FALLING")) {
+      p.shouldLand = fighter.rb.velocity.y < 0;
       fighter.rb.AddRelativeForce(Vector2.right * PlayerController.FALL_CONTROL * p.hDir);
     }
+
 	}
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	// override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-  //   
+  //
 	// }
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

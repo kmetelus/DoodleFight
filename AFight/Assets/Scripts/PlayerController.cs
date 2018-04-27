@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour {
   public bool grounded = true;
   public bool fastfall = false;
   public bool canJump = true;
+  public bool shouldLand = false;
   public bool tryFallThrough = false;
   public bool successFallThrough = false;
   public const float MAX_JUMP_TIME = 0.25f;
@@ -53,13 +54,15 @@ public class PlayerController : MonoBehaviour {
       //Store vertical movement input direction
       vDir = Input.GetAxis("VMovement");
 
-      decelerate = (hDir == 0 && rb.velocity.magnitude > MIN_SPEED && grounded) ? true : false;
-      fastfall = (vDir < 0 && !grounded) ? true : false;
-      tryFallThrough = (vDir < 0) ? true : tryFallThrough;
-
       dash = Input.GetButtonDown("Dash");
       defending = Input.GetButton("Defend");
       attacking = Input.GetButton("Attack");
-      
+
+      decelerate = (hDir == 0 && rb.velocity.magnitude > MIN_SPEED && grounded) || defending || attacking;
+      fastfall = (vDir < 0 && !grounded) ? true : false;
+      tryFallThrough = (vDir < 0) ? true : tryFallThrough;
+
+
+
     }
 }

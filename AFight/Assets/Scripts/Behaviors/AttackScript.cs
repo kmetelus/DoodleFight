@@ -2,46 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpScript : StateMachineBehaviour {
+public class AttackScript : StateMachineBehaviour {
 
-  public float verticalForce;
-  private float jump_buffer_time;
-  private float jump_dir;
-
+  public float movementForward;
   protected Fighter fighter;
   protected PlayerController p;
+  protected AnimationScript a;
+  private SpriteRenderer sr;
+  public float direction;
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
     fighter = (fighter == null) ? animator.gameObject.GetComponent<Fighter>() : fighter;
     p = fighter.GetComponentInParent<PlayerController>();
-    fighter.rb.AddRelativeForce(Vector2.up * verticalForce * p.vDir);
-    jump_buffer_time = PlayerController.MAX_JUMP_TIME;
-    jump_dir = p.hDir;
-    p.shouldLand = false;
+    a = fighter.GetComponentInParent<AnimationScript>();
+    sr = fighter.GetComponentInParent<SpriteRenderer>();
+    direction = (sr.flipX) ? -1 : 1;
 
+    a.canFlip = false;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    jump_buffer_time -=Time.deltaTime;
-    fighter.rb.AddRelativeForce(Vector2.up * (verticalForce / 4) * p.vDir);
-
-    fighter.rb.AddRelativeForce(Vector2.right * PlayerController.AIR_SPEED * jump_dir);
-
-    if (jump_buffer_time <= 0 || p.vDir < 1) {
-      p.canJump = false;
-      animator.SetBool("JUMP", false);
-      animator.SetBool("FALLING", true);
-    }
-
+	   fighter.rb.AddRelativeForce(Vector2.right * movementForward * direction);
+     p.vDir = direction;
 	}
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    // p.canJump = true;
-    jump_buffer_time = 0f;
-    // p.canLand = true;
+    a.canFlip = true;
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

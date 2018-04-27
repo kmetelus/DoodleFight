@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc578fb57d8f70f4a9f94623de535a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canFlip: 1
 --- !u!114 &114963695156491846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -251,6 +252,7 @@ MonoBehaviour:
   grounded: 1
   fastfall: 0
   canJump: 1
+  shouldLand: 1
   tryFallThrough: 0
   successFallThrough: 0
 --- !u!212 &212959082831522332

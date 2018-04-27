@@ -7,14 +7,17 @@ public class AirDashScript : StateMachineBehaviour {
     public float AIR_DASH_POWER;
     protected Fighter fighter;
     protected PlayerController p;
+    protected AnimationScript a;
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
     Debug.Log("AIR DASH");
     fighter = (fighter == null) ? animator.gameObject.GetComponent<Fighter>() : fighter;
     p = fighter.GetComponentInParent<PlayerController>();
+    a = fighter.GetComponentInParent<AnimationScript>();
     fighter.hittable = false;
     fighter.rb.AddRelativeForce(Vector2.right * AIR_DASH_POWER * p.dashDir);
+    a.canFlip = false;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -26,6 +29,7 @@ public class AirDashScript : StateMachineBehaviour {
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
     p.dash = false;
     fighter.hittable = true;
+    a.canFlip = true;
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

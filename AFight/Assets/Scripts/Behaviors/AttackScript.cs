@@ -8,16 +8,24 @@ public class AttackScript : StateMachineBehaviour {
   protected Fighter fighter;
   protected PlayerController p;
   protected AnimationScript a;
-  private SpriteRenderer sr;
+  protected HitboxManagerScript h;
+  private HitboxManagerScript.hitBoxes b;
+  private float frames;
   public float direction;
+
+  // public enum hitBoxes { frame1Box, frame2Box, clear }
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
     fighter = (fighter == null) ? animator.gameObject.GetComponent<Fighter>() : fighter;
     p = fighter.GetComponentInParent<PlayerController>();
     a = fighter.GetComponentInParent<AnimationScript>();
-    sr = fighter.GetComponentInParent<SpriteRenderer>();
-    direction = (sr.flipX) ? -1 : 1;
+    h = fighter.GetComponentInParent<HitboxManagerScript>();
+
+    b = (stateInfo.IsName("ATTACK1")) ? HitboxManagerScript.hitBoxes.frame1Box :
+    (stateInfo.IsName("ATTACK2")) ? HitboxManagerScript.hitBoxes.frame2Box : HitboxManagerScript.hitBoxes.frame3Box;
+    frames = 0;
+    direction = p.dashDir;
 
     a.canFlip = false;
 	}
@@ -26,11 +34,20 @@ public class AttackScript : StateMachineBehaviour {
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 	   fighter.rb.AddRelativeForce(Vector2.right * movementForward * direction);
      p.vDir = direction;
+     // Debug.Log(frames);
+     frames++;
+     if (frames > 10) {
+       h.setHitBox(b);
+     } else {
+       h.resetHitBox();
+     }
 	}
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    a.canFlip = true;
+      h.setHitBox(HitboxManagerScript.hitBoxes.clear);
+      // h.resetHitBox();
+      // Debug.Log("Yup");
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

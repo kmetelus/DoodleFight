@@ -16,7 +16,7 @@ public class GroundScript : MonoBehaviour {
       if (((o.gameObject.CompareTag("Ground") || o.gameObject.CompareTag("Platform")) && p.vDir <= 0) || p.shouldLand) {
         p.tryFallThrough = p.successFallThrough = false;
         p.canJump = p.vDir <= 0;
-        Debug.Log("ENTERED");
+        // Debug.Log("ENTERED");
         p.grounded = true;
       }
       bc.enabled = true;
@@ -33,7 +33,7 @@ public class GroundScript : MonoBehaviour {
   void OnTriggerExit2D(Collider2D o) {
       if (o.gameObject.CompareTag("Ground") || o.gameObject.CompareTag("Platform")) {
           p.grounded = p.canJump = false;
-          Debug.Log("GONE");
+          // Debug.Log("GONE");
           bc.enabled = true;
       }
   }

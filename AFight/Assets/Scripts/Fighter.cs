@@ -5,13 +5,20 @@ using UnityEngine;
 public class Fighter : MonoBehaviour {
   public enum PlayerType { HUMAN, AI };
 
+  // HEALTH VALUES
+
   public static float MAX_HEALTH = 100f;
   public float current_health;
   public static float MAX_METER = 100f;
   public float current_meter;
 
-  public bool hittable = true;
+  // GAMEPLAY VALUES
 
+  public bool hittable = true;
+  public float direction;
+
+
+  // COMPONENT REFERENCES
   public PlayerType player;
   private PlayerController p;
 
@@ -41,8 +48,16 @@ public class Fighter : MonoBehaviour {
     return current_health / MAX_HEALTH;
   }
 
-  public void takeDamage(float damage) {
+  private void getPushed(float horizontalForce, float verticalForce) {
+    rb.AddRelativeForce(Vector2.right * horizontalForce * -p.dashDir);
+    if (!p.defending) {
+      rb.AddRelativeForce(Vector2.up * verticalForce);
+    }
+  }
+
+  public void takeDamage(float damage, float h, float v) {
     current_health -= damage;
+    getPushed(h,v);
   }
 
 

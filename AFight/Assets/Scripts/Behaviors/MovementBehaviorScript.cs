@@ -9,6 +9,7 @@ public class MovementBehaviorScript : StateMachineBehaviour {
 
   protected Fighter fighter;
   protected PlayerController p;
+  protected AnimationScript a;
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
@@ -17,7 +18,9 @@ public class MovementBehaviorScript : StateMachineBehaviour {
     // Debug.Log(animator.GetBool("GROUNDED") + " " + animator.GetBool("DASH"));
 	  fighter = (fighter == null) ? animator.gameObject.GetComponent<Fighter>() : fighter;
     p = fighter.GetComponentInParent<PlayerController>();
-    Debug.Log(stateInfo.shortNameHash);
+    a = fighter.GetComponentInParent<AnimationScript>();
+    // Debug.Log(stateInfo.shortNameHash);
+    a.canFlip = true;
 
 	}
 

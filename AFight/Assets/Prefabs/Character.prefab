@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 50045658522970304}
   - component: {fileID: 70954939493920408}
   - component: {fileID: 114497401830515658}
+  - component: {fileID: 60995178833928114}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -107,6 +108,30 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!60 &60995178833928114
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1264249455611560}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1.78125}
+    newSize: {x: 1.1048387, y: 2.6451612}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths: []
 --- !u!61 &61800754811098704
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -204,6 +229,7 @@ MonoBehaviour:
   current_health: 0
   current_meter: 0
   hittable: 1
+  direction: 0
   player: 0
   rb: {fileID: 0}
 --- !u!114 &114497401830515658
@@ -217,8 +243,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a05425606701d43a5b14290da75fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frame2: {fileID: 60748421171154868, guid: 3ec223ad7fe11df48b8da60ded49a89c, type: 2}
-  frame3: {fileID: 60748421171154868, guid: 3ec223ad7fe11df48b8da60ded49a89c, type: 2}
+  frame1: {fileID: 60639206920013828, guid: 6a828e67098f49a48978406929ff19e8, type: 2}
+  frame2: {fileID: 60639206920013828, guid: 6a828e67098f49a48978406929ff19e8, type: 2}
+  frame3: {fileID: 60639206920013828, guid: 6a828e67098f49a48978406929ff19e8, type: 2}
 --- !u!114 &114591981700625086
 MonoBehaviour:
   m_ObjectHideFlags: 1

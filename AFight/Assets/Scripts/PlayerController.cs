@@ -21,8 +21,12 @@ public class PlayerController : MonoBehaviour {
 
     // Attacking variables
   public bool attacking = false;
+  public bool resetAttack = true;
+  public bool special = false;
     // Defense Variables
   public bool defending = false;
+  public bool isHit = false;
+  public bool isDead = false;
 
     // Jumping Variables
   public bool grounded = true;
@@ -48,15 +52,16 @@ public class PlayerController : MonoBehaviour {
   void Update()  {
 
       //Store horizontal movement input direction
-      hDir = Input.GetAxis("HMovement");
+      hDir = (Input.GetAxis("HMovement") >= 0.5) ? 1 : (Input.GetAxis("HMovement") <= -0.5) ? -1 : 0;
       dashDir = (hDir != 0 && !dash) ? hDir : dashDir;
 
       //Store vertical movement input direction
-      vDir = Input.GetAxis("VMovement");
+      vDir = (Input.GetAxis("VMovement") >= 0.5) ? 1 : (Input.GetAxis("VMovement") <= -0.5) ? -1 : 0;
 
       dash = Input.GetButtonDown("Dash");
-      defending = Input.GetButton("Defend");
+      defending = Input.GetButton("Defend") && grounded;
       attacking = Input.GetButton("Attack");
+      special = Input.GetButton("Special");
 
       decelerate = (hDir == 0 && rb.velocity.magnitude > MIN_SPEED && grounded) || defending || attacking;
       fastfall = (vDir < 0 && !grounded);

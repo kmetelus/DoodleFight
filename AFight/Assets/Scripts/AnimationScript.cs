@@ -7,12 +7,17 @@ public class AnimationScript : MonoBehaviour {
   private SpriteRenderer sr;
   private Animator a;
   private PlayerController p;
+  private Fighter f;
+
   public bool canFlip = true;
+
+  public const float MAX_FRAMES = 30;
 	// Use this for initialization
 	void Start () {
 		sr = GetComponent<SpriteRenderer>();
     a = GetComponent<Animator>();
     p = gameObject.GetComponentInParent<PlayerController>();
+    f = gameObject.GetComponentInParent<Fighter>();
 	}
 
 	// Update is called once per frame
@@ -40,6 +45,9 @@ public class AnimationScript : MonoBehaviour {
     a.SetBool("FALLING", (!p.grounded && !p.canJump && !a.GetBool("JUMP")) || (p.tryFallThrough && p.grounded && p.successFallThrough));
     a.SetBool("DASH", p.dash);
     a.SetBool("DEFEND", p.defending);
-    a.SetBool("ATTACK1", p.attacking);
+    a.SetBool("ATTACK1", p.attacking && p.resetAttack);
+    a.SetBool("SPECIAL", p.special && f.enough_meter);
+    a.SetBool("HIT", p.isHit);
+    a.SetBool("DEAD", p.isDead);
 	}
 }

@@ -21,31 +21,44 @@ public class AttackScript : StateMachineBehaviour {
     p = fighter.GetComponentInParent<PlayerController>();
     a = fighter.GetComponentInParent<AnimationScript>();
     h = fighter.GetComponentInParent<HitboxManagerScript>();
+    Debug.Log(stateInfo.IsName("Attack1"));
 
-    b = (stateInfo.IsName("ATTACK1")) ? HitboxManagerScript.hitBoxes.frame1Box :
-    (stateInfo.IsName("ATTACK2")) ? HitboxManagerScript.hitBoxes.frame2Box : HitboxManagerScript.hitBoxes.frame3Box;
+    b = (stateInfo.IsName("Attack1") || stateInfo.IsName("AerialAttack")) ? HitboxManagerScript.hitBoxes.frame1Box :
+    (stateInfo.IsName("Attack2")) ? HitboxManagerScript.hitBoxes.frame2Box : HitboxManagerScript.hitBoxes.frame3Box;
     frames = 0;
     direction = p.dashDir;
 
+    fighter.current_meter += (stateInfo.IsName("Special")) ? -25f : 2.5f;
     a.canFlip = false;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-	   fighter.rb.AddRelativeForce(Vector2.right * movementForward * direction);
-     p.vDir = direction;
-     // Debug.Log(frames);
-     frames++;
-     if (frames > 10) {
-       h.setHitBox(b);
-     } else {
-       h.resetHitBox();
-     }
+	  fighter.rb.AddRelativeForce(Vector2.right * movementForward * direction);
+    p.vDir = direction;
+    // Debug.Log(frames);
+    frames++;
+    if (frames > 10) {
+      h.setHitBox(b);
+    } else {
+      h.resetHitBox();
+    }
+    if (frames > AnimationScript.MAX_FRAMES && (stateInfo.IsName("Attack3"))) {
+      animator.SetBool("ATTACK1", false);
+      p.resetAttack = false;
+    }
+    if (frames > AnimationScript.MAX_FRAMES && ( stateInfo.IsName("Special"))) {
+      animator.SetBool("SPECIAL", false);
+      p.resetAttack = false;
+    }
 	}
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
       h.setHitBox(HitboxManagerScript.hitBoxes.clear);
+      if (stateInfo.IsName("Attack3") || stateInfo.IsName("Special")) {
+        p.resetAttack = true;
+      }
       // h.resetHitBox();
       // Debug.Log("Yup");
 	}

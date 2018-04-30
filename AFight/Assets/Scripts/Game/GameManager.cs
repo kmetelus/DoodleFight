@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour {
   public Text timerText;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 
     gameOver = false;
 
@@ -52,7 +52,13 @@ public class GameManager : MonoBehaviour {
 
     timeLeft = MAX_TIME;
     timerText.text = "TIME\n" + Mathf.Round(timeLeft);
+    StartCoroutine(Wait());
 	}
+
+  IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(3);
+    }
 
 	// Update is called once per frame
 	void Update () {

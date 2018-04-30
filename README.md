@@ -4,6 +4,17 @@ A fighting game between stick figures.
 Run build.exe to play.
 
 Controls
+
+## Menu
+Mouse
+
+## Ready Screen
+Ready = Square
+(To override 2 player ready requirement, press E)
+
+## In Game
+Escape = Pause
+
 *** For PlayStation 4 Controller ***
 Move = Left Analog Stick
 Square = Attack

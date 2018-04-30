@@ -114,6 +114,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.SpatialMappingRenderer
 6ab6a25c252bcffb84c95ddaae4e1648 Assembly-CSharp.dll:.HitboxManagerScript
 b134b6d116f3bbcca92b5bf2c80ac832 Assembly-CSharp.dll:.AnimationScript
+12737c1c4ca1db7f42b805176ab4fc46 Assembly-CSharp.dll:.resumeScript
 a83123fe9d67026cf5453cd218dab7ec Assembly-CSharp.dll:.DashScript
 82cf5fa6470537bde598842b47ba1fc3 Assembly-CSharp.dll:.TakeDamageScript
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
@@ -148,4 +149,4 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.SpatialMappingRenderer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.TestHitBoxScript
 054adf318e8f2df98d3d03e910f95c01 Assembly-CSharp.dll:.PlayerController
-12737c1c4ca1db7f42b805176ab4fc46 Assembly-CSharp.dll:.resumeScript
+2068395771ec67710a986b9cf3f9fa33 Assembly-CSharp.dll:.ReadyScript

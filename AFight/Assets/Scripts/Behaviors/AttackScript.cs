@@ -21,7 +21,6 @@ public class AttackScript : StateMachineBehaviour {
     p = fighter.GetComponentInParent<PlayerController>();
     a = fighter.GetComponentInParent<AnimationScript>();
     h = fighter.GetComponentInParent<HitboxManagerScript>();
-    Debug.Log(stateInfo.IsName("Attack1"));
 
     b = (stateInfo.IsName("Attack1") || stateInfo.IsName("AerialAttack")) ? HitboxManagerScript.hitBoxes.frame1Box :
     (stateInfo.IsName("Attack2")) ? HitboxManagerScript.hitBoxes.frame2Box :

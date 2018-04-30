@@ -51,6 +51,7 @@ public class Fighter : MonoBehaviour {
     if (rb.velocity.magnitude > PlayerController.MAX_SPEED) {
       rb.velocity = rb.velocity.normalized * PlayerController.MAX_SPEED;
     }
+    // Debug.Log(current_health);
 
     enough_meter = current_meter > 25;
     current_meter = (current_meter > MAX_METER) ? MAX_METER : current_meter;
@@ -58,10 +59,6 @@ public class Fighter : MonoBehaviour {
     rb.drag = (p.decelerate) ? PlayerController.DECELERATION_FACTOR : 0;
     rb.gravityScale = (p.fastfall) ? PlayerController.FAST_FALL_MULTIPLIER : PlayerController.DEFAULT_FALL_MULTIPLIER;
  }
-
-  public float getPercentHealth() {
-    return current_health / MAX_HEALTH;
-  }
 
   private void getPushed(float horizontalForce, float verticalForce, float direction, bool defended) {
     rb.AddRelativeForce(Vector2.right * horizontalForce * direction * 1f);

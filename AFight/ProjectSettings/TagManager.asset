@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - Platform
   - Test
+  - Player1
+  - Player2
   layers:
   - Default
   - TransparentFX

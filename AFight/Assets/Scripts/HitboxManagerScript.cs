@@ -33,7 +33,7 @@ public class HitboxManagerScript : MonoBehaviour {
   }
 
   void OnTriggerEnter2D(Collider2D col) {
-    if (col.gameObject.CompareTag("Player")) {
+    if (col.gameObject.CompareTag("Player1") || col.gameObject.CompareTag("Player2")) {
         // Debug.Log("THATS A HIT");
         Fighter opp = col.gameObject.GetComponentInParent<Fighter>();
         PlayerController opc = col.gameObject.GetComponentInParent<PlayerController>();

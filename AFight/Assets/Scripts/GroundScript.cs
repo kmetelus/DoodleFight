@@ -17,12 +17,12 @@ public class GroundScript : MonoBehaviour {
         p.tryFallThrough = p.successFallThrough = false;
         p.canJump = p.vDir <= 0;
         // Debug.Log("ENTERED");
-        p.grounded = true;
+        p.grounded = o.gameObject.CompareTag("Ground") || o.gameObject.CompareTag("Platform");
       }
       bc.enabled = true;
   }
   void OnTriggerStay2D(Collider2D o) {
-      if (o.gameObject.CompareTag("Ground") || p.shouldLand) {
+      if (o.gameObject.CompareTag("Ground")) {
         p.grounded = true;
       }
       p.canJump = true;

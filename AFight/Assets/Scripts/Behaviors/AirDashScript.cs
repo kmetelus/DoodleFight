@@ -11,7 +11,6 @@ public class AirDashScript : StateMachineBehaviour {
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    Debug.Log("AIR DASH");
     fighter = (fighter == null) ? animator.gameObject.GetComponent<Fighter>() : fighter;
     p = fighter.GetComponentInParent<PlayerController>();
     a = fighter.GetComponentInParent<AnimationScript>();

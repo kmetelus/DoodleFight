@@ -41,6 +41,14 @@ public class PlayerController : MonoBehaviour {
   public const float DEFAULT_FALL_MULTIPLIER = 1f;
   public const float FAST_FALL_MULTIPLIER = 15f;
 
+  //Input variables
+  public string xMov;
+  public string yMov;
+  public string dashInput;
+  public string defendInput;
+  public string attackInput;
+  public string specialInput;
+
 
   private Rigidbody2D rb;
 
@@ -52,16 +60,16 @@ public class PlayerController : MonoBehaviour {
   void Update()  {
 
       //Store horizontal movement input direction
-      hDir = (Input.GetAxis("HMovement") >= 0.5) ? 1 : (Input.GetAxis("HMovement") <= -0.5) ? -1 : 0;
+      hDir = (Input.GetAxis(xMov) >= 0.5) ? 1 : (Input.GetAxis(xMov) <= -0.5) ? -1 : 0;
       dashDir = (hDir != 0 && !dash) ? hDir : dashDir;
 
       //Store vertical movement input direction
-      vDir = (Input.GetAxis("VMovement") >= 0.5) ? 1 : (Input.GetAxis("VMovement") <= -0.5) ? -1 : 0;
+      vDir = (Input.GetAxis(yMov) >= 0.5) ? 1 : (Input.GetAxis(yMov) <= -0.5) ? -1 : 0;
 
-      dash = Input.GetButtonDown("Dash");
-      defending = Input.GetButton("Defend") && grounded;
-      attacking = Input.GetButton("Attack");
-      special = Input.GetButton("Special");
+      dash = Input.GetButtonDown(dashInput);
+      defending = Input.GetButton(defendInput) && grounded;
+      attacking = Input.GetButton(attackInput);
+      special = Input.GetButton(specialInput);
 
       decelerate = (hDir == 0 && rb.velocity.magnitude > MIN_SPEED && grounded) || defending || attacking;
       fastfall = (vDir < 0 && !grounded);

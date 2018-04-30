@@ -16,7 +16,9 @@ public class Fighter : MonoBehaviour {
   // GAMEPLAY VALUES
   public bool enough_meter = false;
   public bool hittable = true;
-  public bool isDead = false;
+  public bool attackState = false;
+  public bool finalAttackState = false;
+  public bool specialState = false;
   public float direction;
 
 
@@ -55,27 +57,33 @@ public class Fighter : MonoBehaviour {
 
     rb.drag = (p.decelerate) ? PlayerController.DECELERATION_FACTOR : 0;
     rb.gravityScale = (p.fastfall) ? PlayerController.FAST_FALL_MULTIPLIER : PlayerController.DEFAULT_FALL_MULTIPLIER;
-    p.isDead = current_health <= 0;
-
  }
 
   public float getPercentHealth() {
     return current_health / MAX_HEALTH;
   }
 
-  private void getPushed(float horizontalForce, float verticalForce, bool defended) {
-    rb.AddRelativeForce(Vector2.right * horizontalForce * -p.dashDir);
+  private void getPushed(float horizontalForce, float verticalForce, float direction, bool defended) {
+    rb.AddRelativeForce(Vector2.right * horizontalForce * direction * 1f);
     if (!defended) {
-      rb.AddRelativeForce(Vector2.up * verticalForce);
+      rb.AddRelativeForce(Vector2.up * verticalForce * 1f);
     }
   }
 
-  public void takeDamage(float damage, float h, float v, bool d) {
-    p.isHit = true;
-    current_health -= damage;
-    current_meter += 1.5f;
-    temp_health += damage/2;
-    getPushed(h, v, d);
+  public void takeDamage(float damage, float h, float v, float dir, bool d) {
+    if (!d) {
+      p.isHit = true;
+      current_health -= damage;
+      temp_health += damage/2;
+      getPushed(h, v, dir, d);
+      p.isDead = current_health <= 0f;
+    } else {
+      current_health -= damage/3;
+      temp_health += (damage/3)/2;
+      getPushed(h, v, dir, d);
+    }
+      current_meter += 1.5f;
+
   }
 
 

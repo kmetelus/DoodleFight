@@ -11,7 +11,6 @@ public class TakeDamageScript : StateMachineBehaviour {
 
   public float verticalForce;
   public float horizontalForce;
-  public float direction;
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
@@ -21,19 +20,24 @@ public class TakeDamageScript : StateMachineBehaviour {
     a = fighter.GetComponentInParent<AnimationScript>();
 
     a.canFlip = false;
-    direction = p.dashDir; // push in opposite direction
+    if (fighter.current_health <= 0) {
+      animator.SetBool("DEAD", true);
+    }
 
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-	   Debug.Log("here");
-	}
+	// override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+  //
+	// }
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
     a.canFlip = true;
     p.isHit = false;
+    if (fighter.current_health <= 0) {
+      animator.SetBool("DEAD", true);
+    }
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

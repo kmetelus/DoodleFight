@@ -24,7 +24,12 @@ public class AttackScript : StateMachineBehaviour {
     Debug.Log(stateInfo.IsName("Attack1"));
 
     b = (stateInfo.IsName("Attack1") || stateInfo.IsName("AerialAttack")) ? HitboxManagerScript.hitBoxes.frame1Box :
-    (stateInfo.IsName("Attack2")) ? HitboxManagerScript.hitBoxes.frame2Box : HitboxManagerScript.hitBoxes.frame3Box;
+    (stateInfo.IsName("Attack2")) ? HitboxManagerScript.hitBoxes.frame2Box :
+    (stateInfo.IsName("Attack3")) ? HitboxManagerScript.hitBoxes.frame3Box : HitboxManagerScript.hitBoxes.frame4Box;
+
+    fighter.attackState = stateInfo.IsName("Attack1") || stateInfo.IsName("Attack2");
+    fighter.finalAttackState =  stateInfo.IsName("Attack3") || stateInfo.IsName("AerialAttack");
+    fighter.specialState = stateInfo.IsName("Special");
     frames = 0;
     direction = p.dashDir;
 
@@ -59,6 +64,7 @@ public class AttackScript : StateMachineBehaviour {
       if (stateInfo.IsName("Attack3") || stateInfo.IsName("Special")) {
         p.resetAttack = true;
       }
+      fighter.attackState = fighter.finalAttackState = fighter.specialState = false;
       // h.resetHitBox();
       // Debug.Log("Yup");
 	}

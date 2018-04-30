@@ -340,7 +340,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 0
-    joyNum: 3
+    joyNum: 2
   - serializedVersion: 3
     m_Name: VMovement
     descriptiveName: W
@@ -388,7 +388,7 @@ InputManager:
     invert: 1
     type: 2
     axis: 1
-    joyNum: 3
+    joyNum: 2
   - serializedVersion: 3
     m_Name: Dash
     descriptiveName: Q
@@ -412,7 +412,7 @@ InputManager:
     negativeButton: 
     positiveButton: 
     altNegativeButton: 
-    altPositiveButton: joystick 3 button 5
+    altPositiveButton: joystick 2 button 5
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -420,7 +420,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 1
-    joyNum: 3
+    joyNum: 2
   - serializedVersion: 3
     m_Name: Attack
     descriptiveName: F
@@ -460,7 +460,7 @@ InputManager:
     negativeButton: 
     positiveButton: 
     altNegativeButton: 
-    altPositiveButton: joystick 3 button 0
+    altPositiveButton: joystick 2 button 0
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -468,7 +468,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 1
-    joyNum: 3
+    joyNum: 2
   - serializedVersion: 3
     m_Name: Defend
     descriptiveName: E
@@ -492,7 +492,7 @@ InputManager:
     negativeButton: 
     positiveButton: e
     altNegativeButton: 
-    altPositiveButton: joystick 3 button 4
+    altPositiveButton: joystick 2 button 4
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -500,7 +500,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 1
-    joyNum: 3
+    joyNum: 2
   - serializedVersion: 3
     m_Name: Special
     descriptiveName: R
@@ -524,7 +524,7 @@ InputManager:
     negativeButton: 
     positiveButton: r
     altNegativeButton: 
-    altPositiveButton: joystick 3 button 3
+    altPositiveButton: joystick 2 button 3
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -532,4 +532,4 @@ InputManager:
     invert: 0
     type: 0
     axis: 1
-    joyNum: 3
+    joyNum: 2
